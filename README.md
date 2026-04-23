@@ -88,7 +88,7 @@ This project was developed to:
 
 1. Clone the github Repository:
    ```bash
-   git clone https://github.com/fbigzad/Bravo-Team.git
+   git clone https://github.com/fedabaig/bigsons-django-web-platform.git
 2. Enter the Project Folder:
    ```bash
    cd bigsons-django-web-platform
