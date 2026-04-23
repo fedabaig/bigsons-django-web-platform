@@ -96,11 +96,6 @@ This project was developed to:
    ```bash
    python -m venv venv
    venv\Scripts\Activate
-4. Open `settings.py` file to change `DEBUG` value for local development
-   - Path: `bigsons_site/settings.py`
-5. Set `DEBUG` value to `True` for local development
-   - `DEBUG = True`
-   - Click **Save**
 5. Install requirements.txt
    ```bash
    pip install -r requirements.txt
