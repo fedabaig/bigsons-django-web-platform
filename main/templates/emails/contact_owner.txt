@@ -1,0 +1,15 @@
+New contact submission
+
+Name: {{ cm.name }}
+Email: {{ cm.email }}
+Phone: {{ cm.phone|default:"—" }}
+Business: {{ cm.business_name|default:"—" }}
+Interest: {{ cm.interest|default:"—" }}
+Package: {{ cm.package|default:"—" }}
+Sent: {{ cm.created_at }}
+
+SEO details:
+{{ cm.seo_details|default:"—" }}
+
+Message:
+{{ cm.message }}

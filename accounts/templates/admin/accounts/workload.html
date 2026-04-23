@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block title %}Staff Workload{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1>Staff Workload</h1>
+
+  <div class="dashboard-cols" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:12px 0;">
+    <div class="module">
+      <div class="title">Open</div>
+      <div class="big">{{ totals.open }}</div>
+    </div>
+    <div class="module">
+      <div class="title">Due Today</div>
+      <div class="big">{{ totals.due_today }}</div>
+    </div>
+    <div class="module">
+      <div class="title">Overdue</div>
+      <div class="big">{{ totals.overdue }}</div>
+    </div>
+    <div class="module">
+      <div class="title">Done (all time)</div>
+      <div class="big">{{ totals.done }}</div>
+    </div>
+  </div>
+
+  <div class="module">
+    <table class="adminlist">
+      <thead>
+        <tr>
+          <th>Staff</th>
+          <th>Open</th>
+          <th>Due Today</th>
+          <th>Overdue</th>
+          <th>Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in staff_rows %}
+          <tr>
+            <td>{{ s.username }}</td>
+            <td>{{ s.open_count }}</td>
+            <td>{{ s.due_today }}</td>
+            <td><strong style="color:#dc2626;">{{ s.overdue }}</strong></td>
+            <td>{{ s.done_7d }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="quiet">No staff found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.module{background:#fff;border:1px solid #ddd;border-radius:6px;padding:12px;}
+.module .title{font-size:12px;color:#666;margin-bottom:6px;}
+.module .big{font-size:24px;font-weight:700;}
+.adminlist{width:100%;}
+.adminlist th,.adminlist td{padding:8px;border-bottom:1px solid #eee;text-align:left;}
+.quiet{color:#888;}
+</style>
+{% endblock %}

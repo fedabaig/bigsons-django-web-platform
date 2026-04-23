@@ -1,0 +1,159 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Website Services | BigSons Web & Marketing{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="mb-5">
+  <div class="hero-section p-4 p-lg-5">
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <span class="hero-badge"><i class="bi bi-flag me-1"></i> Proudly built in the US</span>
+      <span class="badge bg-light text-dark">Noblesville · Fishers · Carmel · Indianapolis</span>
+    </div>
+    <h1 class="h3 hero-title mb-2">Get a website that wins work—without babysitting it</h1>
+    <p class="hero-subtitle mb-0">
+      Clean design, fast performance, and dependable care. We build sites that look sharp,
+      load quick, and bring in real enquiries.
+    </p>
+  </div>
+</section>
+
+<!-- SERVICE CARDS -->
+<section class="mb-5">
+  <div class="row g-4">
+
+    <!-- Web Design -->
+    <div class="col-md-4 d-flex">
+      <article class="card card-soft h-100 w-100 service-card overflow-hidden">
+        <div class="ratio ratio-16x9 position-relative">
+          <img src="{% static 'main/img/services/website-design.png' %}" class="w-100 h-100 object-fit-cover" alt="Web Design & Development">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h2 class="h5 mb-1">Web Design &amp; Development</h2>
+          <p class="small text-muted mb-3">Conversion-focused, mobile-first websites tailored to your brand.</p>
+          <ul class="small text-muted ps-3 mb-3">
+            <li>Modern design that fits your business</li>
+            <li>Fast loads (Core Web Vitals mindful)</li>
+            <li>Lead capture with forms & tracking</li>
+          </ul>
+          <div class="mt-auto d-flex flex-wrap gap-2">
+            <a href="{% url 'main:pricing' %}#website-packages" class="btn btn-primary btn-sm">View website packages</a>
+            <a href="{% url 'main:contact' %}?package=Web%20Design%20%26%20Development" class="btn btn-outline-secondary btn-sm">Get a quote</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Care / Maintenance -->
+    <div class="col-md-4 d-flex">
+      <article class="card card-soft h-100 w-100 service-card overflow-hidden">
+        <div class="ratio ratio-16x9 position-relative">
+          <img src="{% static 'main/img/services/website-care.png' %}" class="w-100 h-100 object-fit-cover" alt="Website Maintenance & Care">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h2 class="h5 mb-1">Website Maintenance &amp; Care</h2>
+          <p class="small text-muted mb-3">Backups, updates, uptime & quick edits—handled for you.</p>
+          <ul class="small text-muted ps-3 mb-3">
+            <li>Security & core updates + uptime monitoring</li>
+            <li>Daily backups & restore help</li>
+            <li>Priority fixes on Plus/Pro plans</li>
+          </ul>
+          <div class="mt-auto d-flex flex-wrap gap-2">
+            <a href="{% url 'main:pricing' %}#care-plans" class="btn btn-primary btn-sm">View care plans</a>
+            <a href="{% url 'main:contact' %}?package=Website%20Maintenance%20%26%20Care" class="btn btn-outline-secondary btn-sm">Get a quote</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- SEO -->
+    <div class="col-md-4 d-flex">
+      <article class="card card-soft h-100 w-100 service-card overflow-hidden">
+        <div class="ratio ratio-16x9 position-relative">
+          <img src="{% static 'main/img/services/newseo-local.png' %}" class="w-100 h-100 object-fit-cover" alt="SEO & Local Visibility">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h2 class="h5 mb-1">SEO &amp; Local Visibility</h2>
+          <p class="small text-muted mb-3">Be found in Noblesville, Fishers, Carmel & Indy.</p>
+          <ul class="small text-muted ps-3 mb-3">
+            <li>Google Business Profile optimization</li>
+            <li>Location/service pages + schema</li>
+            <li>Search Console & Analytics setup</li>
+          </ul>
+          <div class="mt-auto d-flex flex-wrap gap-2">
+           <a href="{% url 'main:pricing' %}#website-packages" class="btn btn-primary btn-sm">View SEO packages</a>
+            <a href="{% url 'main:contact' %}?package=SEO%20%26%20Local%20Visibility" class="btn btn-outline-secondary btn-sm">Get a quote</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<section class="mb-5">
+  <div class="card card-soft">
+    <div class="card-body">
+      <div class="row g-3 text-center text-md-start">
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">~2s</div><div class="small text-muted">Typical homepage load</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Mobile-first</div><div class="small text-muted">Looks great on phones</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Clear pricing</div><div class="small text-muted">No surprise fees</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Local partner</div><div class="small text-muted">Hamilton County, IN</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="mb-5">
+  <h2 class="section-title h4 mb-3">How your project works</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card card-soft h-100">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Step 1</span>
+          <h3 class="h6 mb-1">Plan & proposal</h3>
+          <p class="small text-muted mb-0">Short call + a simple, fixed-price proposal that fits your goals and timeline.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-soft h-100">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Step 2</span>
+          <h3 class="h6 mb-1">Design & build</h3>
+          <p class="small text-muted mb-0">We design the homepage first, then build the rest—fast feedback, zero jargon.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-soft h-100">
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Step 3</span>
+          <h3 class="h6 mb-1">Launch & care</h3>
+          <p class="small text-muted mb-0">We connect your domain, go live, and keep things updated with a Care plan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="mb-3">
+  <div class="card card-soft">
+    <div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+      <div class="mb-3 mb-md-0">
+        <h3 class="h5 mb-1">Ready to look sharp online?</h3>
+        <p class="small text-muted mb-0">Tell BigSons what you do and who you serve—get a friendly, clear recommendation.</p>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-primary" href="{% url 'main:pricing' %}">See packages & pricing</a>
+        <a class="btn btn-outline-secondary" href="{% url 'main:contact' %}">Request a custom quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

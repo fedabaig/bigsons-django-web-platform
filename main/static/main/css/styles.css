@@ -1,0 +1,293 @@
+/* Global */
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Brand colors */
+:root {
+    --brand-primary: #0d6efd;
+    --brand-dark: #0b1726;
+}
+
+/* Hero section */
+.hero-section {
+    background: radial-gradient(circle at top left, #2563eb, #0b1120);
+    color: #f9fafb;
+    border-radius: 1.5rem;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.35);
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+}
+
+.hero-badge i {
+    font-size: 1rem;
+}
+
+.hero-title {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+    color: #e5e7eb;
+}
+
+/* Cards & sections */
+.section-title {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.card-soft {
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.08);
+}
+
+.card-soft:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.18);
+    transition: all 0.18s ease-out;
+}
+
+/* Small pill tags */
+.badge-pill {
+    border-radius: 999px;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+}
+
+/* FAQ accordion override */
+.accordion-button {
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #0f172a;
+    background-color: #e5f0ff;
+}
+
+/* Links */
+a {
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+a:hover {
+    text-decoration: none;
+}
+/* Sample projects / portfolio preview – image-focused gallery */
+.project-gallery-wrapper {
+    background: #020617;
+    border-radius: 1.5rem;
+    padding: 2.25rem 2rem;
+    box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.6);
+    color: #e5e7eb;
+}
+
+.project-gallery-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .project-gallery-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.project-gallery-header h2 {
+    margin: 0;
+}
+
+.project-gallery-subtitle {
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+/* individual cards */
+.project-card {
+    border: none;
+    background: transparent;
+}
+
+.project-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background: #020617;
+    box-shadow: 0 1.3rem 2.6rem rgba(15, 23, 42, 0.55);
+}
+
+/* bigger, cinematic images */
+.project-image-wrapper img {
+    width: 100%;
+    height: auto;          /* keep full aspect ratio */
+    object-fit: contain;   /* show the whole image, no cropping */
+    display: block;
+    transition: transform 0.3s ease-out, filter 0.3s ease-out, opacity 0.3s ease-out;
+    filter: saturate(1.05);
+    background: #020617;   /* in case there are little borders around the image */
+}
+
+
+/* dark gradient overlay for text */
+.project-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 0.85rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.0));
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.project-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #a5b4fc;
+}
+
+.project-overlay-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+.project-overlay-text {
+    font-size: 0.8rem;
+    color: #cbd5f5;
+}
+
+/* hover effect */
+.project-image-wrapper:hover img {
+    transform: scale(1.05);
+    filter: saturate(1.15) brightness(1.02);
+}
+
+/* card body under image – very minimal */
+.project-card .card-body {
+    padding: 0.6rem 0.1rem 0;
+}
+
+.project-card-footnote {
+    font-size: 0.78rem;
+    color: #9ca3af;
+}
+
+/* Eye-candy for service cards */
+.service-card{transition:transform .18s ease,box-shadow .18s ease}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 1.25rem 2.5rem rgba(15,23,42,.16)}
+.object-fit-cover{object-fit:cover}
+.svc-chip{
+  position:absolute;left:.75rem;top:.75rem;
+  display:inline-flex;align-items:center;
+  padding:.35rem .6rem;background:rgba(2,6,23,.72);
+  color:#fff;border-radius:999px;font-size:.8rem;backdrop-filter:blur(2px)
+}
+.svc-price{
+  position:absolute;right:.75rem;bottom:.75rem;
+  padding:.25rem .55rem;background:rgba(255,255,255,.9);
+  color:#0b1726;border-radius:.5rem;font-weight:600;font-size:.8rem;
+  box-shadow:0 .35rem 1rem rgba(15,23,42,.12)
+}
+#Blog
+.blog-card{transition:transform .18s ease,box-shadow .18s ease}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 1.25rem 2.5rem rgba(15,23,42,.16)}
+.blog-body h1,.blog-body h2{margin-top:1rem}
+.blog-body img{max-width:100%;height:auto;border-radius:.5rem}
+
+/* Ensure help text looks subtle & readable */
+.form-text.small {
+  color: #6c757d;
+}
+
+/* Dashboard polish */
+.progress { background-color: #f1f3f5; }
+.card .badge { font-weight: 600; }
+
+/* Premium "Pay Deposit" button */
+.btn-pay{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.55rem 1rem;border:none;border-radius:9999px; /* pill */
+  background:linear-gradient(135deg,#0f1115 0%,#1b1f27 60%,#232832 100%);
+  color:#fff;font-weight:600;letter-spacing:.2px;
+  box-shadow:0 8px 20px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.06);
+  transition:transform .06s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-pay:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 26px rgba(0,0,0,.26), inset 0 0 0 1px rgba(255,255,255,.08);
+  background:linear-gradient(135deg,#0c0f13 0%,#171b22 60%,#1f2430 100%);
+  color:#fff;text-decoration:none;
+}
+.btn-pay:active{
+  transform:translateY(0);
+  box-shadow:0 6px 14px rgba(0,0,0,.2), inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+
+/* --- Premium warm Subscribe button --- */
+.btn-subscribe{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.65rem 1.1rem;border:none;border-radius:14px;
+  background:linear-gradient(135deg,#6152cb 0%,#443cd9 55%,#2f00ff 100%);
+  color:#fbfbfb;font-weight:800;letter-spacing:.2px;
+  box-shadow:0 10px 24px rgba(240, 240, 240, 0.28), inset 0 0 0 1px rgba(255,255,255,.14);
+  transition:transform .06s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn-subscribe:hover{
+  transform:translateY(-1px);
+  filter:saturate(1.05) brightness(1.02);
+  box-shadow:0 14px 30px rgba(255, 255, 255, 0.36), inset 0 0 0 1px rgba(255,255,255,.18);
+  color:#eabc8e;text-decoration:none;
+}
+.btn-subscribe:active{
+  transform:translateY(0);
+  box-shadow:0 8px 18px rgba(255,120,20,.24), inset 0 0 0 1px rgba(255,255,255,.10);
+}
+.btn-subscribe:focus{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(255,150,60,.28), 0 12px 28px rgba(255,120,20,.28);
+}
+
+/* Optional: tiny badge for “/month” text, if you show it near the button */
+.badge-warm{
+  background:rgba(255,106,0,.12); color:#a04300; 
+  font-weight:700; border-radius:9999px; padding:.2rem .5rem;
+}
+/* Subscribed (solid success state) */
+.btn-subscribe--active {
+  background: linear-gradient(135deg, #1ea672, #28c58a) !important;
+  box-shadow: 0 6px 18px rgb(255, 255, 255) !important;
+  cursor: default;
+}
+.btn-subscribe--active:hover {
+  transform: none;
+  box-shadow: 0 6px 18px rgba(30, 166, 114, 0.35) !important;
+}
+/* Make sure navbar doesn't show bullets in any browser */
+.navbar-nav {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+/* Make nav links look consistent */
+.navbar-nav .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}

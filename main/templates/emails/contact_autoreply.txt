@@ -1,0 +1,16 @@
+Hi {{ cm.name }},
+
+Thanks for reaching out to BigSons Web & Marketing. We’ve received your message and will reply soon.
+
+Summary of your request
+- Interest: {{ cm.interest|default:"—" }}
+- Package: {{ cm.package|default:"—" }}
+
+What happens next
+We’ll review your note and, if helpful, suggest the best-fit website package with clear pricing and a simple next step.
+
+You can speed things up by creating your free BigSons Client Portal account:
+https://www.bigsonsweb.com/accounts/signup/
+
+Talk soon,
+BigSons Web & Marketing

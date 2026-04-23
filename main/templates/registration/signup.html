@@ -1,0 +1,275 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Create your account{% endblock %}
+
+<!-- main/templates/registration/signup.html -->
+<form method="post" action="{% url 'accounts:signup' %}" novalidate>
+
+
+{% if form.errors %}
+  <div class="alert alert-danger small">
+    <strong>Please fix these:</strong>
+    <pre class="mb-0">{{ form.errors }}</pre>
+  </div>
+{% endif %}
+
+{% if messages %}
+  <div class="container mt-2">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} py-2 small mb-2">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="mx-auto signup-wrap">
+    <div class="card border-0 shadow-lg overflow-hidden signup-card">
+      <div class="row g-0">
+        <!-- Left panel: brand + benefits -->
+        <div class="col-lg-5 d-none d-lg-block gradient-panel text-white position-relative">
+          <div class="p-4 p-xl-5 h-100 d-flex flex-column">
+            <div class="d-flex align-items-center gap-2 mb-4">
+              <span class="brand-dot"></span>
+              <h2 class="h5 mb-0 fw-semibold">BigSons Web & Marketing</h2>
+            </div>
+
+            <div class="flex-grow-1">
+              <h3 class="h4 fw-semibold mb-2">Welcome! 👋</h3>
+              <p class="text-white-50 mb-4">
+                Spin up your account in under a minute. Manage services, payments,
+                and progress—all in one place.
+              </p>
+
+              <ul class="list-unstyled small mb-4 feature-list">
+                <li><i class="bi bi-check-circle me-2"></i>Clean, mobile-first dashboard</li>
+                <li><i class="bi bi-check-circle me-2"></i>Transparent pricing & invoices</li>
+                <li><i class="bi bi-check-circle me-2"></i>Quick support & updates</li>
+                <li><i class="bi bi-check-circle me-2"></i>Email verification for security</li>
+              </ul>
+            </div>
+
+            <div class="tiny text-white-50">
+              By continuing you agree to our
+              <a class="link-light text-decoration-underline" href="#">Terms</a> &amp;
+              <a class="link-light text-decoration-underline" href="#">Privacy</a>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right panel: the form -->
+        <div class="col-lg-7 bg-white">
+          <div class="p-4 p-xl-5">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h1 class="h4 mb-1">Create your account</h1>
+                <div class="text-muted tiny">Get started in seconds—no credit card needed.</div>
+              </div>
+              <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-sm">
+                Log in
+              </a>
+            </div>
+
+            <!-- Verification hint -->
+            <div class="alert alert-primary d-flex align-items-start gap-2 tiny py-2 mb-3">
+              <i class="bi bi-envelope-paper"></i>
+              <div>
+                We’ll send a quick email to verify your address (link expires in 24 hours).
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form method="post" novalidate>
+              {% csrf_token %}
+
+              {% if form.non_field_errors %}
+                <div class="alert alert-danger tiny py-2 mb-3">{{ form.non_field_errors }}</div>
+              {% endif %}
+
+              <div class="row g-3">
+                                <!-- First / Last -->
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.first_name.id_for_label }}">First name</label>
+                  {% render_field form.first_name class="form-control form-control-compact" autocomplete="given-name" placeholder="First name" %}
+                  <div class="invalid-hint">{{ form.first_name.errors }}</div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.last_name.id_for_label }}">Last name</label>
+                  {% render_field form.last_name class="form-control form-control-compact" autocomplete="family-name" placeholder="Last name" %}
+                  <div class="invalid-hint">{{ form.last_name.errors }}</div>
+                </div>
+  
+
+                <!-- Email -->
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.email.id_for_label }}">Email</label>
+                  {% render_field form.email class="form-control form-control-compact" autocomplete="email" placeholder="you@company.com" %}
+                  <div class="invalid-hint">{{ form.email.errors }}</div>
+                </div>
+
+                <!-- Phone (optional) -->
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.phone.id_for_label }}">
+                    Phone <span class="text-muted">(optional)</span>
+                  </label>
+                  {% render_field form.phone class="form-control form-control-compact" autocomplete="tel" placeholder="(317) 555-0123" %}
+                  <div class="invalid-hint">{{ form.phone.errors }}</div>
+                </div>
+
+                <!-- Passwords + strength -->
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.password1.id_for_label }}">Password</label>
+                  <div class="position-relative">
+                    {% render_field form.password1 class="form-control form-control-compact pe-5" autocomplete="new-password" placeholder="Create a password" %}
+                    <button type="button" class="btn btn-link btn-xs toggle-pass" data-target-id="{{ form.password1.id_for_label }}">Show</button>
+                  </div>
+                  <div class="password-meter tiny mt-1" data-for="{{ form.password1.id_for_label }}">
+                    <div class="meter-bar"></div><span class="meter-label">Strength</span>
+                  </div>
+                  <div class="invalid-hint">{{ form.password1.errors }}</div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label class="form-label tiny mb-1" for="{{ form.password2.id_for_label }}">Confirm password</label>
+                  <div class="position-relative">
+                    {% render_field form.password2 class="form-control form-control-compact pe-5" autocomplete="new-password" placeholder="Confirm password" %}
+                    <button type="button" class="btn btn-link btn-xs toggle-pass" data-target-id="{{ form.password2.id_for_label }}">Show</button>
+                  </div>
+                  <div class="invalid-hint">{{ form.password2.errors }}</div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="d-flex align-items-center gap-2 mt-3">
+                <button class="btn btn-primary px-4">Create account</button>
+                <span class="text-muted tiny ms-auto">Need help? <a href="{% url 'accounts:signup_issue_contact' %}" class="btn btn-link btn-sm">Contact us</a></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div> <!-- /row -->
+    </div> <!-- /card -->
+  </div>
+</div>
+
+<style>
+  .signup-wrap{ max-width: 980px; }
+  .signup-card{ border-radius: 1.25rem; }
+
+  /* Left gradient panel */
+  .gradient-panel{
+    background: radial-gradient(1200px 300px at -5% -10%, rgba(255,255,255,.18), transparent 45%),
+                linear-gradient(135deg, #0d6efd 0%, #6f42c1 65%, #b76df5 100%);
+  }
+  .brand-dot{
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #fff; display:inline-block;
+    box-shadow: 0 0 0 3px rgba(255,255,255,.25);
+  }
+  .feature-list li{ margin-bottom:.35rem; }
+  .feature-list i{ opacity:.9; }
+
+  /* Compact inputs */
+  .form-control-compact{ padding:.6rem .75rem; line-height:1.25; font-size:.95rem; border-radius:.6rem; }
+  .form-control-compact:focus{
+    border-color: rgba(13,110,253,.45);
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.08);
+  }
+
+  .tiny{ font-size:.9rem; }
+  .btn-xs{
+    font-size:.8rem; padding:.125rem .25rem;
+    position:absolute; right:.35rem; top:.25rem;
+  }
+  .invalid-hint{ color:#dc3545; font-size:.83rem; margin-top:.2rem; }
+
+  /* Password meter */
+  .password-meter{
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .password-meter .meter-bar{
+    height:6px; width:120px; border-radius:999px;
+    background: #e9ecef; position:relative; overflow:hidden;
+  }
+  .password-meter .meter-bar::after{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:0%;
+    background:#dc3545; transition: width .25s ease, background .25s ease;
+  }
+  .password-meter .meter-label{ color:#6c757d; }
+
+  /* Responsive niceties */
+  @media (max-width: 991.98px){
+    .signup-card{ border-radius: 1rem; }
+  }
+</style>
+
+<script>
+  // Show/Hide password
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest(".toggle-pass");
+    if(!btn) return;
+    const id = btn.getAttribute("data-target-id");
+    const input = document.getElementById(id);
+    if(!input) return;
+    const isPwd = input.type === "password";
+    input.type = isPwd ? "text" : "password";
+    btn.textContent = isPwd ? "Hide" : "Show";
+  });
+
+  // Simple password strength meter (front-end heuristic)
+  function scorePwd(v){
+    let s = 0;
+    if(!v) return 0;
+    if(v.length >= 8) s += 1;
+    if(/[A-Z]/.test(v)) s += 1;
+    if(/[a-z]/.test(v)) s += 1;
+    if(/\d/.test(v))   s += 1;
+    if(/[^A-Za-z0-9]/.test(v)) s += 1;
+    return Math.min(s, 5);
+  }
+  function barColor(score){
+    return ['#dc3545','#fd7e14','#ffc107','#0d6efd','#198754'][Math.max(0,score-1)];
+  }
+  function barWidth(score){ return (score/5*100).toFixed(0) + '%'; }
+
+  document.addEventListener("input", function(e){
+    if(!(e.target && e.target.getAttribute("type")==="password")) return;
+    const id = e.target.id;
+    const meter = document.querySelector(`.password-meter[data-for="${id}"] .meter-bar`);
+    const label = document.querySelector(`.password-meter[data-for="${id}"] .meter-label`);
+    if(!meter || !label) return;
+    const s = scorePwd(e.target.value);
+    meter.style.setProperty('--w', barWidth(s));
+    meter.style.position = 'relative';
+    meter.style.setProperty('overflow', 'hidden');
+    meter.querySelector('::after');
+  });
+
+  // Manually update ::after width since direct pseudo-element access isn't available
+  document.addEventListener("input", function(e){
+    const id = e.target.id;
+    const bar = document.querySelector(`.password-meter[data-for="${id}"] .meter-bar`);
+    if(!bar) return;
+    const s = scorePwd(e.target.value);
+    // Create/resize inner fill
+    let fill = bar.querySelector('.meter-fill');
+    if(!fill){
+      fill = document.createElement('div');
+      fill.className = 'meter-fill';
+      fill.style.height = '100%';
+      fill.style.width = '0%';
+      fill.style.borderRadius = '999px';
+      bar.appendChild(fill);
+    }
+    fill.style.width = (s/5*100) + '%';
+    fill.style.background = barColor(s);
+    const label = bar.parentElement.querySelector('.meter-label');
+    if(label){
+      const text = ['Very weak','Weak','Okay','Good','Strong'][Math.max(0,s-1)];
+      label.textContent = s ? `Strength: ${text}` : 'Strength';
+    }
+  });
+</script>
+{% endblock %}

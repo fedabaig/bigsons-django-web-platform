@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+{% block title %}Payment Successful | BigSons{% endblock %}
+{% block meta %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block content %}
+<section class="text-center py-5">
+  <h1 class="h3 mb-2">Thank you!</h1>
+  {% if info.name %}
+    <p class="lead mb-1">Demo payment completed for <strong>{{ info.name }}</strong>.</p>
+    <p class="text-muted">{{ info.amount_display }}</p>
+  {% else %}
+    <p class="lead">Demo payment completed.</p>
+  {% endif %}
+  <div class="mt-3">
+    <a class="btn btn-primary" href="{% url 'payments_dashboard' %}">Back to Payments</a>
+  </div>
+  <p class="small text-muted mt-3">No charges were made. Connect Stripe to enable real payments.</p>
+</section>
+{% endblock %}

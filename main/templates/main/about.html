@@ -1,0 +1,141 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}About Us | BigSons Web & Marketing{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="mb-5">
+  <div class="hero-section p-4 p-lg-5">
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <span class="hero-badge"><i class="bi bi-flag me-1"></i> Proudly built in the US</span>
+      <span class="badge bg-light text-dark">Hamilton County · Noblesville · Fishers · Carmel</span>
+    </div>
+    <h1 class="h3 hero-title mb-2">A small studio that treats your website like a business tool</h1>
+    <p class="hero-subtitle mb-0">
+      BigSons designs clean, fast websites for local service companies—sites that look sharp,
+      load quickly, and help you win more quotes without babysitting tech.
+    </p>
+  </div>
+</section>
+
+<!-- STORY / MISSION -->
+<section class="mb-5">
+  <div class="row g-4 align-items-center">
+    <div class="col-lg-6">
+      <h2 class="section-title h4 mb-2">Our mission</h2>
+      <p class="text-muted">
+        Make professional web design simple and affordable for Indiana businesses.
+        No jargon. No surprise fees. Just a clear plan, dependable communication,
+        and a website you’re proud to send customers to.
+      </p>
+      <ul class="small text-muted mb-0 ps-3">
+        <li>Practical design that matches your brand and speaks to your customers</li>
+        <li>Performance-first builds (mobile, Core Web Vitals, accessibility basics)</li>
+        <li>Transparent pricing and timelines—always agreed in writing</li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-soft">
+        <div class="card-body">
+          <h3 class="h6 mb-2">What we do best</h3>
+          <div class="row g-3 small">
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 h-100">
+                <div class="fw-semibold mb-1"><i class="bi bi-window me-1"></i> Websites</div>
+                <div class="text-muted">Clean, modern, conversion-focused builds</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 h-100">
+                <div class="fw-semibold mb-1"><i class="bi bi-shield-check me-1"></i> Care Plans</div>
+                <div class="text-muted">Backups, updates, uptime & quick edits</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 h-100">
+                <div class="fw-semibold mb-1"><i class="bi bi-graph-up-arrow me-1"></i> Local SEO</div>
+                <div class="text-muted">Service/location pages & GBP basics</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 h-100">
+                <div class="fw-semibold mb-1"><i class="bi bi-people me-1"></i> Friendly Support</div>
+                <div class="text-muted">Work directly with a local partner</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <a href="{% url 'main:pricing' %}" class="btn btn-primary btn-sm me-2">See packages & pricing</a>
+            <a href="{% url 'main:contact' %}" class="btn btn-outline-secondary btn-sm">Request a quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES / PROMISE -->
+<section class="mb-5">
+  <div class="bg-white rounded-4 p-4 p-md-5 shadow-sm">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h3 class="h6 mb-2"><i class="bi bi-check2-circle me-1"></i> Clear communication</h3>
+        <p class="small text-muted mb-0">You’ll always know what’s next, what it costs, and when it ships.</p>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h6 mb-2"><i class="bi bi-lightning-charge me-1"></i> Performance first</h3>
+        <p class="small text-muted mb-0">Fast loads, mobile-first layouts, and clean code as the default.</p>
+      </div>
+      <div class="col-md-4">
+        <h3 class="h6 mb-2"><i class="bi bi-heart me-1"></i> Local & reliable</h3>
+        <p class="small text-muted mb-0">Based in Hamilton County, responsive via email or phone—no ticket maze.</p>
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row g-3 align-items-center">
+      <div class="col-md">
+        <div class="small text-muted">
+          <strong>Areas we serve:</strong> Noblesville, Fishers, Carmel, Indianapolis—plus remote projects across Indiana.
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <span class="badge bg-dark">US-made design for US businesses</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY STRIP -->
+<section class="mb-5">
+  <div class="card card-soft">
+    <div class="card-body">
+      <div class="row g-3 text-center text-md-start">
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">~2s</div><div class="small text-muted">Typical homepage load</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Mobile-first</div><div class="small text-muted">Optimized for phones</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Clear pricing</div><div class="small text-muted">No surprise fees</div></div>
+        <div class="col-6 col-md-3"><div class="fw-bold h5 mb-0">Local partner</div><div class="small text-muted">Hamilton County, IN</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="mb-3">
+  <div class="card card-soft">
+    <div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+      <div class="mb-3 mb-md-0">
+        <h3 class="h5 mb-1">Ready to look sharp online?</h3>
+        <p class="small text-muted mb-0">Share a few details and we’ll reply with next steps, a clear timeline, and a straightforward recommendation—no pressure, no jargon.</p>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-primary" href="{% url 'main:pricing' %}">See packages</a>
+        <a class="btn btn-outline-secondary" href="{% url 'main:contact' %}">Request a quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

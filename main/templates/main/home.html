@@ -1,0 +1,325 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Web Design & Maintenance | BigSons Web & Marketing{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero-section mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <div class="hero-badge mb-3">
+        <i class="bi bi-lightning-charge-fill"></i>
+        <span>Websites & maintenance for serious local businesses</span>
+      </div>
+      <div class="hero-badge mb-3">
+  <i class="bi bi-flag me-1"></i>
+  <span>Proudly built in the USA for local businesses like yours.</span>
+</div>
+<h1 class="display-5 hero-title mb-3">
+  Web design &amp; website maintenance in
+  <span class="text-warning">Noblesville, Fishers, Carmel &amp; Indianapolis.</span>
+</h1>
+
+<p class="lead hero-subtitle mb-4">
+  BigSons plans, designs, and maintains clean, fast websites that help customers
+  find you, trust you, and contact you — while you stay focused on running the business.
+</p>
+
+<div class="d-flex flex-wrap gap-3">
+  <a href="{% url 'main:pricing' %}" class="btn btn-light btn-lg px-4">
+    View packages &amp; pricing
+  </a>
+  <a href="{% url 'main:contact' %}" class="btn btn-outline-light btn-lg px-4">
+    Request a custom quote
+  </a>
+</div>
+
+
+<p class="mt-3 mb-0 small text-uppercase text-gray-300">
+  Local expertise • Transparent pricing • Long-term support
+</p>
+
+
+    </div>
+    <div class="col-lg-5">
+      <div class="bg-dark bg-opacity-25 rounded-4 p-4">
+  <h2 class="h5 mb-3">Why choose BigSons for web design &amp; website maintenance</h2>
+<ul class="list-unstyled mb-0 small">
+  <li class="mb-2">
+    <i class="bi bi-check-circle me-2 text-success"></i>
+    Local web design partner serving Noblesville, Fishers, Carmel &amp; Indianapolis — not a distant, overseas agency.
+  </li>
+  <li class="mb-2">
+    <i class="bi bi-check-circle me-2 text-success"></i>
+    Built on modern, stable technology so your website can grow as your business grows.
+  </li>
+  <li class="mb-2">
+    <i class="bi bi-check-circle me-2 text-success"></i>
+    Fast, SEO-friendly websites that load quickly and look professional on phones, tablets, and desktops.
+  </li>
+  <li>
+    <i class="bi bi-check-circle me-2 text-success"></i>
+    Ongoing website maintenance and security plans to keep your site updated, protected, and running smoothly.
+  </li>
+</ul>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE SERVICES -->
+<section class="mb-5">
+  <div class="bg-white rounded-4 p-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="section-title h3 mb-0">Core services</h2>
+      <a href="{% url 'main:services' %}" class="small fw-semibold text-decoration-none">
+        See all services <i class="bi bi-arrow-right-short"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+      <!-- Web Design & Development -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body">
+            <span class="badge bg-primary badge-pill mb-2">
+              <i class="bi bi-window me-1"></i> Web Design
+            </span>
+            <h3 class="h5 mb-2">Web Design &amp; Development</h3>
+            <p class="small text-muted mb-3">
+              Custom, mobile-friendly websites for cleaners, contractors, and other
+              local businesses that need to look professional online.
+            </p>
+            <a href="{% url 'main:pricing' %}#website-packages" class="small fw-semibold">
+              Learn more <i class="bi bi-arrow-right-short"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Website Maintenance & Care -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body">
+            <span class="badge bg-success badge-pill mb-2">
+              <i class="bi bi-shield-check me-1"></i> Maintenance
+            </span>
+            <h3 class="h5 mb-2">Website Maintenance &amp; Care</h3>
+            <p class="small text-muted mb-3">
+              Backups, updates, security checks, and small content changes —
+              handled for you on a simple monthly plan.
+            </p>
+            <a href="{% url 'main:pricing' %}#care-plans" class="small fw-semibold">
+              Learn more <i class="bi bi-arrow-right-short"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO & Local Visibility -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body">
+            <span class="badge bg-warning text-dark badge-pill mb-2">
+              <i class="bi bi-graph-up-arrow me-1"></i> SEO
+            </span>
+            <h3 class="h5 mb-2">SEO &amp; Local Visibility</h3>
+            <p class="small text-muted mb-3">
+              Basic SEO setup and local optimization so customers in your area
+              can actually find you when they search.
+            </p>
+            <a href="{% url 'main:pricing' %}#website-packages" class="small fw-semibold">
+              Learn more <i class="bi bi-arrow-right-short"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO PREVIEW -->
+<!-- SAMPLE PROJECTS / PORTFOLIO PREVIEW -->
+<!-- SAMPLE PROJECTS / PORTFOLIO PREVIEW -->
+<section class="mb-5">
+  <div class="project-gallery-wrapper">
+    <div class="project-gallery-header">
+      <h2 class="section-title h3 mb-0">Sample projects</h2>
+      <p class="project-gallery-subtitle mb-0">
+        A few example layouts BigSons can tailor to your logo, colors, and content —
+        from local service businesses to serious industrial companies.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Car dealership -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <div class="project-image-wrapper">
+            <img src="{% static 'main/img/sample-car-dealer.png' %}"
+                 alt="Car dealership website shown on desktop and mobile">
+          </div>
+          <div class="card-body">
+            <p class="project-card-footnote mb-0">
+              Great for car dealers, used lots, and auto brokers who want leads, not just “a website.”
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cleaning company -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <div class="project-image-wrapper">
+            <img src="{% static 'main/img/sample-cleaning.png' %}"
+                 alt="Cleaning company website mockup on desktop and mobile">
+          </div>
+          <div class="card-body">
+            <p class="project-card-footnote mb-0">
+              Perfect for home & office cleaning, maid services, and janitorial companies.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Manufacturing / industrial -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <div class="project-image-wrapper">
+            <img src="{% static 'main/img/sample-manufacturing.png' %}"
+                 alt="Industrial manufacturing company website on desktop and mobile">
+          </div>
+          <div class="card-body">
+            <p class="project-card-footnote mb-0">
+              Great for manufacturers, fabricators, and any company selling to other businesses.
+            </p>
+          </div>
+        </div>
+      </div>
+
+           <!-- Women’s salon -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <div class="project-image-wrapper">
+            <img src="{% static 'main/img/sample-salon.png' %}"
+                 alt="Women’s hair salon website shown on desktop and mobile">
+          </div>
+          <div class="card-body">
+            <p class="project-card-footnote mb-0">
+              A modern, elegant layout for hair salons and beauty studios, with space
+              for services, stylists, gallery, and online booking links.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      
+            <!-- Bar / nightlife -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card project-card h-100">
+          <div class="project-image-wrapper">
+            <img src="{% static 'main/img/sample-bar.png' %}"
+                 alt="Bar and nightlife website shown on desktop and mobile">
+          </div>
+          <div class="card-body">
+            <p class="project-card-footnote mb-0">
+              Designed for bars, lounges, cafés, and restaurants that want to
+              show atmosphere, menu, and events in a clean, modern way.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+ <!-- CTA / Your business next -->
+<div class="col-md-6 col-lg-4 d-flex">
+  <div class="card project-cta-card h-100 w-100">
+    <div class="card-body d-flex flex-column">
+      <div class="project-cta-badge mb-2">
+        <i class="bi bi-stars me-1"></i>
+        Your website, built by BigSons
+      </div>
+
+      <h3 class="project-cta-title mb-2">Your business could be next</h3>
+
+      <p class="project-cta-text mb-3">
+        Barbershop, clinic, auto shop, trucking fleet, industrial supplier, consulting firm —
+        if your business needs to look sharp online, BigSons designs clean, modern websites
+        that turn visitors into real enquiries.
+      </p>
+
+      <ul class="project-cta-list small mb-4">
+        <li>Professional, mobile-friendly design</li>
+        <li>Built on modern, stable technology</li>
+        <li>Transparent pricing &amp; simple maintenance plans</li>
+      </ul>
+
+      <div class="mt-auto">
+        <a href="{% url 'main:contact' %}" class="btn btn-light btn-sm px-3">
+          Get a free website quote
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <h2 class="section-title h3 mb-3">Frequently asked questions</h2>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq1">
+        <button class="accordion-button" type="button"
+                data-bs-toggle="collapse" data-bs-target="#faq1Body">
+          How much does a website cost?
+        </button>
+      </h2>
+      <div id="faq1Body" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+        <div class="accordion-body small">
+          Most basic websites for local service businesses fall into a simple range,
+          depending on pages and features. Once we understand your goals, we’ll send
+          a clear, no-pressure quote so you know exactly what you’re paying for.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq2">
+        <button class="accordion-button collapsed" type="button"
+                data-bs-toggle="collapse" data-bs-target="#faq2Body">
+          How long does it take to launch my website?
+        </button>
+      </h2>
+      <div id="faq2Body" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body small">
+          Simple brochure sites can often be ready in a couple of weeks once we have
+          your content and branding. More complex projects (logins, dashboards, etc.)
+          may take longer. We’ll give you a realistic timeline up front.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faq3">
+        <button class="accordion-button collapsed" type="button"
+                data-bs-toggle="collapse" data-bs-target="#faq3Body">
+          Do you handle updates and maintenance?
+        </button>
+      </h2>
+      <div id="faq3Body" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body small">
+          Yes. BigSons offers website care plans that cover backups, security
+          updates, uptime monitoring, and small content changes so you don’t have
+          to touch the technical side at all.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

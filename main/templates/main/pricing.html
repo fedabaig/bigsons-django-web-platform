@@ -1,0 +1,343 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Website Packages & Pricing | BigSons Web & Marketing{% endblock %}
+
+{% block content %}
+
+<!-- HEADER / HERO -->
+<section class="mb-5">
+  <div class="hero-section">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-7">
+        <div class="hero-badge mb-3">
+          <i class="bi bi-cash-coin"></i>
+          <span>Clear, transparent website pricing for Indiana businesses</span>
+        </div>
+       <h1 class="h3 hero-title mb-3">
+  Proudly designed in America for American businesses — website packages that are easy to understand,
+  easy to approve, and built to grow with your business.
+</h1>
+
+        <p class="hero-subtitle mb-3">
+          Whether you’re just getting your business online or refreshing an outdated site,
+          BigSons offers straightforward packages with everything you need — and nothing you don’t.
+        </p>
+        <p class="small text-light mb-0">
+          Serving businesses in Noblesville, Fishers, Carmel, Indianapolis, and across Indiana.
+        </p>
+      </div>
+      <div class="col-lg-5">
+        <div class="bg-dark bg-opacity-25 rounded-4 p-3 p-lg-4">
+          <h2 class="h6 mb-3">What you can expect with every project</h2>
+          <ul class="small mb-3">
+            <li class="mb-1">
+              <i class="bi bi-check-circle me-2 text-success"></i>
+              Clean, modern design tailored to your brand.
+            </li>
+            <li class="mb-1">
+              <i class="bi bi-check-circle me-2 text-success"></i>
+              Mobile-friendly layouts that look great on any device.
+            </li>
+            <li class="mb-1">
+              <i class="bi bi-check-circle me-2 text-success"></i>
+              Basic SEO structure so customers can actually find you.
+            </li>
+            <li class="mb-1">
+              <i class="bi bi-check-circle me-2 text-success"></i>
+              Direct communication with a local partner, not a ticket system.
+            </li>
+          </ul>
+          <p class="small text-light mb-0">
+            Typical small-business projects fall between <strong>$799–$2,399</strong>, depending on scope.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEBSITE PACKAGES -->
+<!-- WEBSITE PACKAGES -->
+<section class="mb-5">
+  <div class="bg-white rounded-4 p-4 p-md-5 shadow-sm">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+      <div>
+        <h2 class="h4 mb-1">One-time website build packages</h2>
+        <p class="small text-muted mb-0">
+          Three clear options to match where your business is today — with room to grow tomorrow.
+        </p>
+      </div>
+      <div class="mt-2 mt-md-0">
+        <span class="badge bg-light text-dark border small">
+          All packages include mobile-friendly design &amp; basic SEO
+        </span>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Launch Starter -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 mb-1">Launch Starter</h3>
+            <p class="fw-bold mb-2">$799 <span class="text-muted small">one-time</span></p>
+            <p class="small text-muted mb-3">
+              A clean, professional website for businesses taking their first serious step online.
+            </p>
+            <ul class="small text-muted mb-3">
+              <li>Up to 3 pages (Home, Services, Contact)</li>
+              <li>Modern, mobile-friendly layout</li>
+              <li>Contact form routed to your email</li>
+              <li>Brand colours, logo, and basic imagery</li>
+              <li>Basic on-page SEO (titles, meta, headings)</li>
+              <li>Social media icons linking to your Facebook, Instagram, or LinkedIn (if provided)</li>
+              <li>Domain connection &amp; launch support</li>
+              <li>1 round of revisions</li>
+            </ul>
+            <div class="mt-auto small text-muted">
+              Ideal for new businesses, solo professionals, and side projects that need a solid, credible online presence.
+            </div>
+            <a href="{% url 'accounts:signup' %}?package=Launch%20Starter"
+   class="btn btn-outline-primary btn-sm mt-3">
+  Start with Launch Starter
+</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Essentials (Most popular) -->
+<div class="col-md-4">
+  <div class="card card-soft h-100 border border-primary-subtle">
+    <div class="card-body d-flex flex-column">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="h5 mb-0">Business Essentials</h3>
+        <span class="badge bg-primary text-light small">
+          Most popular
+        </span>
+      </div>
+      <p class="fw-bold mb-2">$1,499 <span class="text-muted small">one-time</span></p>
+      <p class="small text-muted mb-3">
+        The “just right” option for established businesses that want their website to actively support enquiries and sales.
+      </p>
+      <ul class="small text-muted mb-3">
+        <li>Up to 6 pages (e.g. Home, Services, About, Blog, Contact)</li>
+        <li>Conversion-focused homepage with clear calls-to-action</li>
+        <li>Service pages structured to generate enquiries</li>
+        <li>Blog/news section set up and styled</li>
+        <li>On-page SEO for all pages in the build</li>
+        <li>Google Analytics &amp; basic tracking installed</li>
+        <li>Prominent social media links and share previews configured for Facebook &amp; LinkedIn</li>
+        <li>2 rounds of revisions</li>
+      </ul>
+      <div class="mt-auto small text-muted">
+        Designed for small and mid-sized organisations that rely on their website to inform clients, answer questions, and generate new opportunities.
+      </div>
+      <a href="{% url 'accounts:signup' %}?package=Business%20Essentials"
+   class="btn btn-primary btn-sm mt-3">
+  Start with Business Essentials
+</a>
+
+    </div>
+  </div>
+</div>
+
+      <!-- Growth Plus -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 mb-1">Growth Plus</h3>
+            <p class="fw-bold mb-2">$2,399 <span class="text-muted small">one-time</span></p>
+            <p class="small text-muted mb-3">
+              For brands that see their website as a key marketing asset and want space for content, resources, and proof.
+            </p>
+            <ul class="small text-muted mb-3">
+              <li>Up to 12 pages (services, FAQs, portfolio, etc.)</li>
+              <li>Advanced homepage with trust, projects &amp; FAQ sections</li>
+              <li>Lead-focused quote/request flow</li>
+              <li>Featured blog posts or resources on homepage</li>
+              <li>Homepage section for testimonials or social proof (reviews, badges, or optional social feed)</li>
+              <li>Enhanced on-page SEO structure and internal linking</li>
+              <li>Integration with one tool (booking, CRM, or email list)</li>
+              <li>3 rounds of revisions</li>
+            </ul>
+            <div class="mt-auto small text-muted">
+              Best for growing companies, multi-location businesses, and organisations investing in regular marketing and content.
+            </div>
+            <a href="{% url 'accounts:signup' %}?package=Growth%20Plus"
+   class="btn btn-outline-primary btn-sm mt-3">
+  Start with Growth Plus
+</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="small text-muted mt-3 mb-0">
+      *Pricing above is typical for small and mid-sized businesses. Larger or more complex
+      projects (custom apps, advanced integrations, e-commerce, etc.) may require a tailored proposal.*
+    </p>
+  </div>
+</section>
+
+<!-- CARE PLANS -->
+<section class="mb-5">
+  <div class="bg-white rounded-4 p-4 p-md-5 shadow-sm">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+      <div>
+        <h2 class="h4 mb-1">Ongoing website care &amp; maintenance</h2>
+        <p class="small text-muted mb-0">
+          Keep your website secure, up-to-date, and looking sharp — without adding “tech support” to your job description.
+        </p>
+      </div>
+      <div class="mt-2 mt-md-0">
+        <span class="badge bg-light text-dark border small">
+          Optional add-on for any package
+        </span>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Care Basic -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h6 mb-1">Care Basic</h3>
+            <p class="fw-bold mb-2">$39 <span class="text-muted small">/ month</span></p>
+            <p class="small text-muted mb-3">
+              The essentials to keep your website online, secure, and professional with minimal effort on your side.
+            </p>
+            <ul class="small text-muted mb-3">
+              <li>Fast, secure cloud hosting</li>
+              <li>SSL certificate included</li>
+              <li>Core updates &amp; basic security checks</li>
+              <li>Uptime monitoring</li>
+              <li>1 small content update per month</li>
+            </ul>
+            <div class="mt-auto small text-muted">
+              Suitable for stable brochure-style websites that change rarely but must always look trustworthy.
+            </div>
+            <a href="{% url 'accounts:signup' %}?package=Care%20Basic"
+   class="btn btn-outline-primary btn-sm mt-3">
+  Add Care Basic
+</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Care Plus -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100 border border-primary-subtle">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h6 mb-1">Care Plus</h3>
+            <p class="fw-bold mb-2">$79 <span class="text-muted small">/ month</span></p>
+            <p class="small text-muted mb-3">
+              For websites that get updated regularly and teams that want a clear view of what’s working.
+            </p>
+            <ul class="small text-muted mb-3">
+              <li>Everything in Care Basic</li>
+              <li>Up to 60 minutes of content changes per month</li>
+              <li>Priority support</li>
+              <li>Monthly performance &amp; SEO basics report</li>
+              <li>Image optimisation for new content</li>
+            </ul>
+            <div class="mt-auto small text-muted">
+              A good fit for businesses that run offers, publish updates, or adjust services from month to month.
+            </div>
+            <a href="{% url 'accounts:signup' %}?package=Care%20Plus"
+   class="btn btn-outline-primary btn-sm mt-3">
+  Add Care Plus
+</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Care Pro -->
+      <div class="col-md-4">
+        <div class="card card-soft h-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h6 mb-1">Care Pro</h3>
+            <p class="fw-bold mb-2">$149 <span class="text-muted small">/ month</span></p>
+            <p class="small text-muted mb-3">
+              For growth-focused teams that treat their website as an active marketing and sales channel.
+            </p>
+            <ul class="small text-muted mb-3">
+              <li>Everything in Care Plus</li>
+              <li>Up to 2.5 hours of changes per month</li>
+              <li>Quarterly strategy call</li>
+              <li>Landing pages for campaigns or promotions (within included time)</li>
+            </ul>
+            <div class="mt-auto small text-muted">
+              Designed for marketing-driven organisations that run campaigns, promotions, and ongoing content programs throughout the year.
+            </div>
+            <a href="{% url 'accounts:signup' %}?package=Care%20Pro"
+   class="btn btn-outline-primary btn-sm mt-3">
+  Add Care Pro
+</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ / CTA -->
+<section class="mb-3">
+  <div class="card card-soft mb-3">
+    <div class="card-body">
+      <h2 class="h5 mb-3">Pricing &amp; project questions</h2>
+<div class="row g-3 small text-muted">
+  <div class="col-md-6">
+    <strong>How does payment work?</strong>
+<p class="mb-0">
+  To keep things simple and comfortable, projects are usually split into three stages:
+  <strong>30% to start</strong>, <strong>40% after you approve the main design</strong>,
+  and <strong>30% at launch</strong> once the site is ready to go live. For larger or
+  multi-phase projects, BigSons can agree a staged schedule that matches your timeline
+  and comfort level — always agreed in writing before work starts.
+</p>
+<p class="mb-0 mt-2">
+  <strong>Satisfaction guarantee:</strong> if, after we’ve delivered the agreed design
+  and used your included revision rounds, you genuinely feel the website does not match
+  what we agreed to build, BigSons will either continue working at no extra cost to make
+  it right or refund your project fee, minus any third-party costs (such as domains or
+  stock photos purchased specifically for your project).
+</p>
+
+  </div>
+  <div class="col-md-6">
+    <strong>What if I don’t see exactly what I need?</strong>
+    <p class="mb-0">
+      That’s completely normal. These packages are designed as a clear starting point.
+      If your project sits between two options or needs something different, just share
+      a few details and BigSons will prepare a tailored proposal based on your goals,
+      budget, and priorities — not a one-size-fits-all template.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="card card-soft">
+  <div class="card-body text-center">
+    <h2 class="h5 mb-2">Ready to elevate your online presence?</h2>
+    <p class="small text-muted mb-3">
+      Tell BigSons a bit about your business, your customers, and what you’d like your website to do.
+      You’ll receive a clear reply with next steps, realistic timelines, and a straightforward recommendation
+      — no pressure, no jargon.
+    </p>
+    <a href="{% url 'main:contact' %}" class="btn btn-primary">
+      Request a custom quote
+    </a>
+  </div>
+</div>
+</section>
+
+{% endblock %}

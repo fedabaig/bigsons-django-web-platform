@@ -1,0 +1,119 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ slug|title }} | BigSons Web & Marketing{% endblock %}
+
+{% block content %}
+<nav class="small mb-2">
+  <a href="{% url 'main:services' %}" class="text-muted text-decoration-none">Services</a>
+  <span class="text-muted"> / </span>
+  <span>{{ slug|title }}</span>
+</nav>
+
+{% if slug == 'web-design' %}
+  <section class="mb-3">
+    <div class="hero-badge mb-2"><i class="bi bi-flag me-1"></i> Proudly built in the USA</div>
+    <h1 class="h2 mb-2">Website Design &amp; Development</h1>
+    <p class="text-muted">Custom, mobile-first designs built for speed, clarity, and conversions.</p>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="h5 mb-3">Website packages</h2>
+    {% include 'main/partials/packages_web_design.html' %}
+    <div class="text-end mt-2">
+      <a class="small" href="{% url 'main:pricing' %}#website-packages">View on pricing page →</a>
+    </div>
+  </section>
+
+{% elif slug == 'website-maintenance' %}
+  <section class="mb-3">
+    <div class="hero-badge mb-2"><i class="bi bi-shield-check me-1"></i> Care plans that keep sites healthy</div>
+    <h1 class="h2 mb-2">Website Maintenance &amp; Care</h1>
+    <p class="text-muted">Security updates, backups, uptime monitoring, and small content edits.</p>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="h5 mb-3">Care plans</h2>
+    {% include 'main/partials/packages_care.html' %}
+    <div class="text-end mt-2">
+      <a class="small" href="{% url 'main:pricing' %}#care-plans">View on pricing page →</a>
+    </div>
+  </section>
+
+{% elif slug == 'seo' %}
+  <section class="mb-3">
+    <div class="hero-badge mb-2"><i class="bi bi-geo-alt me-1"></i> Local visibility that brings leads</div>
+    <h1 class="h2 mb-2">SEO &amp; Local Visibility</h1>
+    <p class="text-muted">Help customers find you in Noblesville, Fishers, Carmel &amp; Indianapolis.</p>
+  </section>
+
+  <section class="mb-4">
+    <div class="row g-4">
+      <div class="col-md-4 d-flex">
+        <div class="card card-soft h-100 w-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 mb-1">Local Starter</h3>
+            <p class="small text-muted mb-3">Foundational setup for new sites.</p>
+            <ul class="small text-muted ps-3 mb-3">
+              <li>GBP setup/cleanup</li>
+              <li>Basic keyword targets</li>
+              <li>1 location page + schema</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-end">
+              <div class="fw-semibold">$399</div>
+              <a class="btn btn-primary btn-sm" href="{% url 'main:contact' %}?package=SEO%20-%20Local%20Starter">Choose Starter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex">
+        <div class="card card-soft border-primary h-100 w-100 position-relative">
+          <span class="badge bg-primary position-absolute top-0 start-50 translate-middle-x mt-2">Most popular</span>
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 mb-1">Local Growth</h3>
+            <p class="small text-muted mb-3">Multi-city presence + review plan.</p>
+            <ul class="small text-muted ps-3 mb-3">
+              <li>3–5 location/service pages</li>
+              <li>Schema + internal linking</li>
+              <li>Review request workflow</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-end">
+              <div class="fw-semibold">$899</div>
+              <a class="btn btn-primary btn-sm" href="{% url 'main:contact' %}?package=SEO%20-%20Local%20Growth">Choose Growth</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex">
+        <div class="card card-soft h-100 w-100">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 mb-1">Local Pro</h3>
+            <p class="small text-muted mb-3">Aggressive build-out + tracking.</p>
+            <ul class="small text-muted ps-3 mb-3">
+              <li>6–10 location/service pages</li>
+              <li>Content plan + blog scaffolding</li>
+              <li>Dashboards (Search Console/GA4)</li>
+            </ul>
+            <div class="mt-auto d-flex justify-content-between align-items-end">
+              <div class="fw-semibold">$1,499+</div>
+              <a class="btn btn-primary btn-sm" href="{% url 'main:contact' %}?package=SEO%20-%20Local%20Pro">Choose Pro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% else %}
+  <h1 class="h2 mb-3">Service: {{ slug|title }}</h1>
+  <p class="text-muted">This service is coming soon.</p>
+{% endif %}
+
+<div class="card card-soft mt-3">
+  <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+    <p class="small text-muted mb-2 mb-md-0">Not sure which option fits? Tell BigSons what you do and who you serve—we’ll recommend the right package.</p>
+    <a href="{% url 'main:contact' %}" class="btn btn-outline-primary btn-sm">Request a custom quote</a>
+  </div>
+</div>
+{% endblock %}

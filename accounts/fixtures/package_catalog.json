@@ -1,0 +1,14 @@
+[
+  {"model": "accounts.packagecatalog", "pk": 1,
+   "fields": {"slug": "launch-starter", "name": "Launch Starter", "price_cents": 79900, "type": "one-time", "icon": ""}},
+  {"model": "accounts.packagecatalog", "pk": 2,
+   "fields": {"slug": "business-essentials", "name": "Business Essentials", "price_cents": 149900, "type": "one-time", "icon": ""}},
+  {"model": "accounts.packagecatalog", "pk": 3,
+   "fields": {"slug": "growth-plus", "name": "Growth Plus", "price_cents": 239900, "type": "one-time", "icon": ""}},
+  {"model": "accounts.packagecatalog", "pk": 4,
+   "fields": {"slug": "care-basic", "name": "Care Basic", "price_cents": 3900, "type": "subscription", "icon": ""}},
+  {"model": "accounts.packagecatalog", "pk": 5,
+   "fields": {"slug": "care-plus", "name": "Care Plus", "price_cents": 7900, "type": "subscription", "icon": ""}},
+  {"model": "accounts.packagecatalog", "pk": 6,
+   "fields": {"slug": "care-pro", "name": "Care Pro", "price_cents": 14900, "type": "subscription", "icon": ""}}
+]

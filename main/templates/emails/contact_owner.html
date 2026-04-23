@@ -1,0 +1,15 @@
+<h3 style="margin:0 0 .5rem 0;">New contact submission</h3>
+<table style="font:14px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+  <tr><td><b>Name</b></td><td>{{ cm.name }}</td></tr>
+  <tr><td><b>Email</b></td><td>{{ cm.email }}</td></tr>
+  <tr><td><b>Phone</b></td><td>{{ cm.phone|default:"—" }}</td></tr>
+  <tr><td><b>Business</b></td><td>{{ cm.business_name|default:"—" }}</td></tr>
+  <tr><td><b>Interest</b></td><td>{{ cm.interest|default:"—" }}</td></tr>
+  <tr><td><b>Package</b></td><td>{{ cm.package|default:"—" }}</td></tr>
+  <tr><td><b>Sent</b></td><td>{{ cm.created_at }}</td></tr>
+</table>
+<hr>
+<p><b>SEO details</b></p>
+<pre style="white-space:pre-wrap; font:13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">{{ cm.seo_details|default:"—" }}</pre>
+<p><b>Message</b></p>
+<pre style="white-space:pre-wrap; font:13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">{{ cm.message }}</pre>

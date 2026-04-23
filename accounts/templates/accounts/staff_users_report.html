@@ -1,0 +1,38 @@
+{# templates/accounts/staff_users_report.html #}
+{% extends "main/base.html" %}
+{% block title %}Users Report{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="h4 mb-3">Users Report</h1>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th># Packages</th>
+          <th># Payments</th>
+          <th>Total Paid</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+          <tr>
+            <td>{{ u.get_full_name|default:u.username }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.package_count }}</td>
+            <td>{{ u.payment_count }}</td>
+            <td>
+              {% with cents=u.total_paid_cents|default:0 %}
+                ${{ cents|floatformat:-2|divisibleby:100 }}{# optional; or format in view #}
+              {% endwith %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="text-muted">No users found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

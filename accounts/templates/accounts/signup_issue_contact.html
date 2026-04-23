@@ -1,0 +1,97 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Signup or Account Issue – BigSons{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <h1 class="h3 mb-3">Need help with signup?</h1>
+      <p class="text-muted mb-4">
+        If you’re running into issues creating your BigSons account or logging in,
+        send us a note below. We’ll review and get back to you by email.
+      </p>
+
+      {# Django messages (success/error) #}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} mb-3" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label class="form-label" for="id_name">Your name</label>
+              {{ form.name }}
+              {% if form.name.errors %}
+                <div class="text-danger small mt-1">
+                  {{ form.name.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_email">Your email</label>
+              {{ form.email }}
+              <div class="form-text">We’ll reply to this address.</div>
+              {% if form.email.errors %}
+                <div class="text-danger small mt-1">
+                  {{ form.email.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_subject">Subject</label>
+              {{ form.subject }}
+              {% if form.subject.errors %}
+                <div class="text-danger small mt-1">
+                  {{ form.subject.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_message">Describe the issue</label>
+              {{ form.message }}
+              <div class="form-text">
+                For example: “I didn’t receive the verification email” or “The signup form shows an error”.
+              </div>
+              {% if form.message.errors %}
+                <div class="text-danger small mt-1">
+                  {{ form.message.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{% url 'accounts:signup' %}" class="btn btn-outline-secondary btn-sm">
+                Back to signup
+              </a>
+              <button type="submit" class="btn btn-primary">
+                Send message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <p class="small text-muted mt-3">
+        Prefer email? You can also write to us at
+        <a href="mailto:info@bigsonsweb.com?subject=Signup%20issue%20-%20BigSons%20account">
+          info@bigsonsweb.com
+        </a>.
+      </p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

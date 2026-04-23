@@ -1,0 +1,177 @@
+{% extends 'main/base.html' %}
+{% block title %}Contact & Quote | BigSons Web & Marketing{% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+
+<section class="mb-4">
+  <div class="row g-4 align-items-start">
+    <!-- LEFT SIDE: INTRO / TRUST -->
+    <div class="col-lg-5">
+      <h1 class="section-title h2 mb-3">Contact & Request a Quote</h1>
+
+      <p class="text-muted mb-3">
+        Use this form to start the conversation about your website or maintenance needs.
+        BigSons will follow up personally with a simple, clear response.
+      </p>
+
+      {# Professional email block #}
+      <div class="contact-meta card-soft mb-3">
+        <div class="card-body d-flex">
+          <div class="contact-meta-icon me-3">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <div>
+            <div class="small text-uppercase text-muted fw-semibold mb-1">Email BigSons directly</div>
+            <a href="mailto:info@bigsonsweb.com" class="contact-email-link">
+              info@bigsonsweb.com
+            </a>
+            <div class="small text-muted mt-1">
+              Best for project briefs, attachments, or follow-up questions.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-soft mb-3">
+        <div class="card-body small">
+          <h2 class="h6 mb-2">What you can expect</h2>
+          <ul class="mb-2 ps-3">
+            <li class="mb-1">A friendly, human reply (no bots, no hard sell).</li>
+            <li class="mb-1">Straightforward answers about options and pricing.</li>
+            <li class="mb-1">A suggested package or custom outline for your situation.</li>
+          </ul>
+          <p class="text-muted mb-0">
+            Your information is kept private and used only to respond to your enquiry.
+            BigSons does not sell or share your data with third parties.
+          </p>
+        </div>
+      </div>
+
+      <p class="small text-muted mb-0">
+        Serving businesses in Noblesville, Fishers, Carmel, Indianapolis, and across Indiana —
+        proudly designed in America for American businesses.
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE: FORM -->
+    <div class="col-lg-7">
+      <div class="card card-soft contact-card">
+        <div class="card-header border-0 pb-0 bg-transparent">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="h5 mb-0">Tell BigSons about your project</h2>
+              <p class="small text-muted mb-0">
+                Share a few details and we’ll respond within one business day.
+              </p>
+            </div>
+            <div class="d-none d-md-flex align-items-center small text-muted">
+              <i class="bi bi-shield-check me-1"></i> Secure & private
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          {% if selected_package %}
+            <div class="alert alert-primary small mb-3">
+              <strong>Chosen package:</strong> {{ selected_package }}<br>
+              <span class="text-muted">
+                We’ll double-check this is the best fit before anything is approved or scheduled.
+              </span>
+            </div>
+          {% endif %}
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if selected_package %}
+              <input type="hidden" name="package" value="{{ selected_package }}">
+            {% endif %}
+
+            <!-- Basic details -->
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small">Your name *</label>
+                <input type="text" name="name" class="form-control" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small">Email address *</label>
+                <input type="email" name="email" class="form-control" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small">Phone (optional)</label>
+                <input type="tel" name="phone" class="form-control" placeholder="If you prefer a quick call">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small">Business name (optional)</label>
+                <input type="text" name="business_name" class="form-control">
+              </div>
+            </div>
+
+            <!-- Simple interest -->
+            <div class="mt-3 mb-3">
+              <label class="form-label small">What are you looking for? *</label>
+              <select name="interest" class="form-select" required>
+                <option value="">Please choose one</option>
+                <option value="New website">New website</option>
+                <option value="Redesign of existing website">Redesign of existing website</option>
+                <option value="Website maintenance & care">Website maintenance &amp; care</option>
+                <option value="Not sure yet / need guidance">Not sure yet / need guidance</option>
+              </select>
+            </div>
+
+            <!-- Main message -->
+            <div class="mb-3">
+              <label class="form-label small">Tell BigSons a little about your project *</label>
+              <textarea name="message" rows="4" class="form-control" required
+                placeholder="Short is fine: what you do, who you serve, and what you’d like your website to achieve."></textarea>
+              <div class="form-text small">
+                No need to write a lot — a few sentences or bullet points are enough.
+              </div>
+            </div>
+
+            <!-- Optional SEO / marketing info -->
+            <div class="mb-3">
+              <label class="form-label small">
+                Optional: details to help with SEO &amp; marketing (recommended)
+              </label>
+              <textarea name="seo_details" rows="3" class="form-control"
+                placeholder="Service areas, main services, competitors, or keywords your customers might search for."></textarea>
+              <div class="form-text small text-muted">
+                This field is optional, but sharing a bit here helps BigSons plan a stronger website structure,
+                SEO and marketing strategy for your project.
+              </div>
+            </div>
+
+            <!-- Privacy note -->
+            <div class="small text-muted mb-3">
+              Your details are stored securely and used only so BigSons can contact you about this request
+              and any follow-up you ask for. You can request removal of your information at any time.
+            </div>
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+              <div class="small text-muted mb-2 mb-md-0">
+                Average response time: <span class="fw-semibold">within 1 business day</span>.
+              </div>
+              <button type="submit" class="btn btn-primary px-4 contact-submit-btn">
+                Send quote request
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <p class="small text-muted mt-3 mb-0">
+        Prefer to write directly? Email
+        <a href="mailto:info@bigsonsweb.com?subject=Project%20inquiry%20-%20BigSons%20Web%20%26%20Marketing">
+          info@bigsonsweb.com
+        </a>
+        with your details and we’ll take it from there.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

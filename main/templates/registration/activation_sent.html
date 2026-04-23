@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% block title %}Verify your email{% endblock %}
+{% block content %}
+<div class="container py-4" style="max-width:720px;">
+  <h1 class="h4 mb-3">Verify your email</h1>
+  <p>
+    Thanks for signing up! We just sent a verification link to
+    <strong>{{ email }}</strong>.
+  </p>
+  <p class="text-muted small">
+    For your security, the link expires in 24 hours. Click it to activate your account.
+    Didn’t get an email? Check your spam folder or try again.
+  </p>
+  <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-sm mt-2">Back to login</a>
+</div>
+{% endblock %}

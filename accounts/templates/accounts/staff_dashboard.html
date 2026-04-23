@@ -1,0 +1,282 @@
+{# templates/accounts/staff_dashboard.html #}
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4 staff-dashboard">
+
+  <!-- =========================
+       Header
+       ========================= -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <div>
+      <h1 class="h4 mb-1">Employee Dashboard</h1>
+      <p class="small text-muted mb-0">
+        Welcome, here are your KPIs and assigned tasks.
+      </p>
+    </div>
+    <div class="mt-2 mt-md-0 d-flex gap-2">
+      <a href="{% url 'password_change' %}" class="btn btn-outline-secondary btn-sm">
+        Change password
+      </a>
+    </div>
+  </div>
+
+  <!-- =========================
+       KPI Cards
+       ========================= -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card kpi shadow-sm border-0">
+        <div class="card-body text-center">
+          <div class="text-muted small">Overdue</div>
+          <div class="display-6 text-danger fw-semibold">{{ kpi.overdue|default:0 }}</div>
+        </div>
+        <div class="kpi-accent kpi-danger"></div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card kpi shadow-sm border-0">
+        <div class="card-body text-center">
+          <div class="text-muted small">Due today</div>
+          <div class="display-6 text-warning fw-semibold">{{ kpi.today|default:0 }}</div>
+        </div>
+        <div class="kpi-accent kpi-warning"></div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card kpi shadow-sm border-0">
+        <div class="card-body text-center">
+          <div class="text-muted small">Open</div>
+          <div class="display-6 fw-semibold">{{ kpi.open|default:0 }}</div>
+        </div>
+        <div class="kpi-accent kpi-primary"></div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card kpi shadow-sm border-0">
+        <div class="card-body text-center">
+          <div class="text-muted small">Done</div>
+          <div class="display-6 fw-semibold">{{ kpi.done|default:0 }}</div>
+        </div>
+        <div class="kpi-accent kpi-success"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- =========================
+         LEFT: Filters + Tasks
+         ========================= -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <!-- Filters/search -->
+          <form class="row g-2 align-items-end">
+            <div class="col-6 col-md-3">
+              <label class="form-label small mb-1">Status</label>
+              <select name="status" class="form-select form-select-sm">
+                <option value="">All</option>
+                <option value="todo"  {% if filters.status == "todo"  %}selected{% endif %}>To do</option>
+                <option value="doing" {% if filters.status == "doing" %}selected{% endif %}>In progress</option>
+                <option value="done"  {% if filters.status == "done"  %}selected{% endif %}>Done</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small mb-1">Due</label>
+              <select name="due" class="form-select form-select-sm">
+                <option value="">Any</option>
+                <option value="overdue"  {% if filters.due == "overdue"  %}selected{% endif %}>Overdue</option>
+                <option value="today"    {% if filters.due == "today"    %}selected{% endif %}>Today</option>
+                <option value="upcoming" {% if filters.due == "upcoming" %}selected{% endif %}>Upcoming</option>
+                <option value="none"     {% if filters.due == "none"     %}selected{% endif %}>No date</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-3">
+              <label class="form-label small mb-1">Search</label>
+              <input type="text" name="q" value="{{ filters.q }}" class="form-control form-control-sm"
+                     placeholder="Title, customer, package…">
+            </div>
+            <div class="col-12 col-md-2 d-flex gap-2">
+              <button class="btn btn-dark btn-sm w-100">Apply</button>
+              <a href="{% url 'accounts:staff_dashboard' %}" class="btn btn-outline-secondary btn-sm w-100">Reset</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tasks table -->
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">My Tasks</span>
+          <div class="d-flex gap-2 small">
+            <span class="badge bg-secondary">To do</span>
+            <span class="badge bg-warning text-dark">In progress</span>
+            <span class="badge bg-success">Done</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead class="small text-muted">
+              <tr>
+                <th>Title</th>
+                <th>Customer</th>
+                <th>Package</th>
+                <th>Due</th>
+                <th>Status</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for t in page_obj %}
+              <tr class="task-row task-{{ t.status }}">
+                <td>
+                  <div class="fw-semibold">{{ t.title }}</div>
+                  {% if t.description %}
+                    <div class="small text-muted">{{ t.description|truncatechars:80 }}</div>
+                  {% endif %}
+                </td>
+                <td class="small">
+                  {% if t.customer %}
+                    <div class="fw-semibold">{{ t.customer.get_full_name|default:t.customer.username }}</div>
+                    <div class="text-muted">{{ t.customer.email|default:"" }}</div>
+                  {% else %}
+                    <span class="text-muted">—</span>
+                  {% endif %}
+                </td>
+                <td class="small">
+                  {% if t.user_package and t.user_package.package %}
+                    {{ t.user_package.package.name }}
+                  {% else %}
+                    <span class="text-muted">—</span>
+                  {% endif %}
+                </td>
+                <td class="small">
+                  {% if t.due_date %}
+                    {% if t.due_date < today %}<span class="badge bg-danger me-1">Overdue</span>{% endif %}
+                    {{ t.due_date }}
+                  {% else %}
+                    <span class="text-muted">—</span>
+                  {% endif %}
+                </td>
+                <td class="small">
+                  {% if t.status == "todo" %}
+                    <span class="badge bg-secondary">To do</span>
+                  {% elif t.status == "doing" %}
+                    <span class="badge bg-warning text-dark">In progress</span>
+                  {% else %}
+                    <span class="badge bg-success">Done</span>
+                  {% endif %}
+                </td>
+                <td class="text-end">
+                  {# Single smart action button #}
+                  <form method="post" action="{% url 'accounts:staff_task_status' t.id %}" class="d-inline">
+                    {% csrf_token %}
+                    {% if t.status == "todo" %}
+                      <input type="hidden" name="status" value="doing">
+                      <button class="btn btn-sm btn-outline-secondary">Start</button>
+                    {% elif t.status == "doing" %}
+                      <input type="hidden" name="status" value="done">
+                      <button class="btn btn-sm btn-success">Done</button>
+                    {% else %}
+                      <button class="btn btn-sm btn-success" disabled>Done</button>
+                    {% endif %}
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6" class="text-center text-muted small py-4">No tasks match your filters.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="card-body border-top">
+          <nav aria-label="Tasks pages">
+            <ul class="pagination pagination-sm mb-0">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link"
+                     href="?page={{ page_obj.previous_page_number }}&status={{ filters.status }}&due={{ filters.due }}&q={{ filters.q }}">Prev</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link">Prev</span></li>
+              {% endif %}
+              <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link"
+                     href="?page={{ page_obj.next_page_number }}&status={{ filters.status }}&due={{ filters.due }}&q={{ filters.q }}">Next</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         RIGHT: Customer Context + Tips
+         ========================= -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm mb-3">
+        <div class="card-header fw-semibold">Customer Context</div>
+        <div class="card-body small">
+          <div class="text-muted">Recent Packages</div>
+          <ul class="list-unstyled mb-3">
+            {% for up in recent_packages %}
+              <li class="mb-2">
+                <div class="fw-semibold">{{ up.user.get_full_name|default:up.user.username }}</div>
+                <div class="text-muted">{{ up.package.name }} · {{ up.get_status_display }}</div>
+              </li>
+            {% empty %}
+              <li class="text-muted">No related packages.</li>
+            {% endfor %}
+          </ul>
+
+          <div class="text-muted">Recent Payments</div>
+          <ul class="list-unstyled mb-0">
+            {% for p in recent_payments %}
+              <li class="mb-2">
+                <div class="fw-semibold">{{ p.user.get_full_name|default:p.user.username }}</div>
+                <div class="text-muted">
+                  {{ p.amount_display }} · {{ p.created_at|date:"Y-m-d" }}
+                  {% if p.user_package and p.user_package.package %} · {{ p.user_package.package.name }}{% endif %}
+                </div>
+              </li>
+            {% empty %}
+              <li class="text-muted">No related payments.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-info small">
+        Tip: filter by <strong>Overdue</strong> to clear urgent items first.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================
+     Page-specific styles
+     ========================= -->
+<style>
+  .staff-dashboard .kpi { position: relative; overflow: hidden; border-radius: .75rem; }
+  .staff-dashboard .kpi-accent { position:absolute; left:0; right:0; bottom:0; height:6px; }
+  .staff-dashboard .kpi-danger  { background:#dc3545; }
+  .staff-dashboard .kpi-warning { background:#ffc107; }
+  .staff-dashboard .kpi-primary { background:#0d6efd; }
+  .staff-dashboard .kpi-success { background:#198754; }
+  .staff-dashboard .task-row { border-left: 6px solid transparent; transition: box-shadow .15s ease, transform .05s ease; }
+  .staff-dashboard .task-row:hover { box-shadow: 0 .4rem 1rem rgba(0,0,0,.06); }
+  .staff-dashboard .task-todo   { border-left-color: #6c757d; }
+  .staff-dashboard .task-doing  { border-left-color: #ffc107; }
+  .staff-dashboard .task-done   { border-left-color: #198754; }
+</style>
+{% endblock %}

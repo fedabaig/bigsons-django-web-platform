@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div class="content">
+  <h1>{{ title }}</h1>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <p class="help">You are about to apply this action to {{ queryset|length }} object(s).</p>
+    <input type="hidden" name="action" value="{{ action }}">
+    <input type="submit" name="apply" value="Apply" class="default">
+  </form>
+</div>
+{% endblock %}

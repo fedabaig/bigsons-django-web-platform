@@ -1,0 +1,55 @@
+<!-- blog/templates/blog/blog_detail.html -->
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}{{ post.title }} | BigSons Blog{% endblock %}
+
+{% block meta %}
+<link rel="canonical" href="{{ abs_url }}">
+<meta name="description" content="{{ post.excerpt|truncatechars:155 }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.excerpt|truncatechars:200 }}">
+<meta property="og:url" content="{{ abs_url }}">
+<meta property="og:image" content="{{ post.cover_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BlogPosting",
+  "headline":"{{ post.title|escapejs }}",
+  "description":"{{ post.excerpt|escapejs }}",
+  "image":"{{ post.cover_url }}",
+  "datePublished":"{{ post.published_at|date:'c' }}",
+  "dateModified":"{{ post.updated_at|date:'c' }}",
+  "author":{"@type":"Organization","name":"{{ post.author_name|escapejs }}"},
+  "publisher":{"@type":"Organization","name":"BigSons Web & Marketing"},
+  "mainEntityOfPage":{"@type":"WebPage","@id":"{{ abs_url }}"}
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<nav class="small mb-2"><a href="{% url 'blog:list' %}">← Back to Blog</a></nav>
+
+<article class="container">
+  <header class="mb-3">
+    <h1 class="h2 mb-2">{{ post.title }}</h1>
+    <div class="text-muted small">{{ post.published_at|date:"Y-m-d" }} · {{ post.author_name }} · {{ reading }}</div>
+  </header>
+
+  <figure class="ratio ratio-16x9 mb-3">
+    <img src="{{ post.cover_url }}" alt="{{ post.title }}" class="w-100 h-100 object-fit-cover">
+  </figure>
+
+  <div class="blog-body">
+    {# If you store plain text, use |linebreaks. If you paste HTML into body, use |safe #}
+    {{ post.body|safe }}
+  </div>
+
+  <hr class="my-4">
+  <div class="d-flex gap-2">
+    <a class="btn btn-primary" href="{% url 'main:contact' %}">Request a free quote</a>
+    <a class="btn btn-outline-secondary" href="{% url 'main:pricing' %}">See packages & pricing</a>
+  </div>
+</article>
+{% endblock %}

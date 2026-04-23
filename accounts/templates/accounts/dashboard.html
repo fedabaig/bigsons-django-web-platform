@@ -1,0 +1,478 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}My Account - BigSons{% endblock %}
+
+{% block content %}
+
+{% if email_pending %}
+<div class="alert alert-warning d-flex justify-content-between align-items-center">
+  <div>
+    <strong>Email verification pending:</strong>
+    We’ve sent a link to your inbox. Please verify to unlock all features.
+    {% if verify_deadline %}<span class="ms-1">Link expires {{ verify_deadline|date:"M j, g:ia" }}.</span>{% endif %}
+  </div>
+  <a class="btn btn-sm btn-outline-dark ms-3" href="{% url 'accounts:resend_verification' %}">Resend link</a>
+</div>
+{% endif %}
+
+<div class="container py-4">
+
+  <!-- Greeting -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <div>
+      <h1 class="h4 mb-1">Welcome, {{ request.user.get_full_name|default:request.user.username }}</h1>
+      <p class="small text-muted mb-0">Manage your website, care plan, and billing in one place.</p>
+    </div>
+    <div class="mt-2 mt-md-0">
+      <a href="{% url 'main:contact' %}" class="btn btn-outline-secondary btn-sm">Request a change</a>
+      <!-- This opens the modal -->
+      <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+        Add a service
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- SERVICES & PACKAGES -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header fw-semibold">My Services &amp; Packages</div>
+        <div class="card-body">
+
+          {% if packages %}
+            {% for pkg in packages %}
+              <div class="border rounded-3 p-3 mb-3">
+                <div class="d-flex flex-wrap justify-content-between align-items-start">
+                  <div class="me-3">
+                    <div class="d-flex align-items-center">
+                      {% if pkg.icon %}
+                        <img src="{% static pkg.icon %}" alt="" width="28" height="28" class="me-2">
+                      {% endif %}
+                      <h2 class="h6 mb-0">{{ pkg.name|default:"(Unnamed package)" }}</h2>
+                    </div>
+
+                    <div class="small text-muted mt-1">
+                      {% if pkg.type == "one-time" %}
+                        One-time build · {{ pkg.price_display|default:"—" }}
+                      {% else %}
+                        Subscription · {{ pkg.price_display|default:"—" }}
+                      {% endif %}
+                    </div>
+
+                    <div class="mt-2">
+                      {% if pkg.status == "Active" %}
+                        <span class="badge bg-success">Active</span>
+                      {% elif pkg.status == "In progress" %}
+                        <span class="badge bg-warning text-dark">In progress</span>
+                      {% elif pkg.status == "Paused" %}
+                        <span class="badge bg-secondary">Paused</span>
+                      {% else %}
+                        <span class="badge bg-light text-dark">{{ pkg.status|default:"Unknown" }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <!-- Manage actions -->
+                  <div class="dropdown ms-auto">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                      Manage
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      {% if pkg.can_change %}
+                        <li><a class="dropdown-item" href="{% url 'main:pricing' %}#website-packages">Change / Upgrade</a></li>
+                      {% endif %}
+                      {% if pkg.can_pause and pkg.id %}
+                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#pauseModal{{ forloop.counter }}">Pause plan</button></li>
+                      {% endif %}
+                      {% if pkg.can_cancel and pkg.id %}
+                        <li><button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#cancelModal{{ forloop.counter }}">Cancel</button></li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+
+                {# SUBSCRIPTIONS: show Subscribe or Subscribed #}
+                {% if pkg.is_subscription %}
+                  {% if pkg.status == "Active" %}
+                    <button class="btn btn-subscribe btn-subscribe--active mt-2" disabled>
+                      Subscribed
+                    </button>
+                    <a class="btn btn-outline-secondary btn-sm ms-2 mt-2" href="{% url 'accounts:billing_portal' %}">
+                      Manage billing
+                    </a>
+                  {% else %}
+                    <form method="post" action="{% url 'accounts:subscribe_care' pkg.slug %}" class="mt-2">
+                      {% csrf_token %}
+                      <button class="btn btn-subscribe">
+                        Subscribe
+                      </button>
+                    </form>
+                  {% endif %}
+                {% else %}
+                  {# ONLY show a pay button when there is a next tranche due #}
+                  {% if pkg.type == "one-time" and pkg.next_partial_cents %}
+                    <form method="post" action="{% url 'accounts:pay_package' pkg.id %}" class="mt-2">
+                      {% csrf_token %}
+                      <button class="btn btn-pay btn-sm" aria-label="Pay deposit">Pay Deposit</button>
+                    </form>
+                  {% endif %}
+                {% endif %}
+
+
+                <!-- Payment summary -->
+                {% if pkg.type != "subscription" %}
+                  <div class="row g-3 mt-3">
+                    <div class="col-md-7">
+                      <div class="small text-muted mb-1">Project payment (30% / 40% / 30%)</div>
+                      <div class="progress" style="height: 8px;">
+                        <div class="progress-bar"
+                            role="progressbar"
+                            data-pct="{{ pkg.paid_percent|default_if_none:'0'|cut:'%' }}"
+                            aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between small mt-1">
+                        <span>Paid: {{ pkg.paid_display|default:"—" }}</span>
+                        <span>Due: {{ pkg.due_display|default:"—" }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="small text-muted mb-1">Next milestone</div>
+                      <div class="border rounded-3 p-2 small">
+                        {{ pkg.next_milestone_label|default:"—" }}<br>
+                        <span class="text-muted">Target: {{ pkg.next_milestone_date|default:"—" }}</span>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <!-- Included features -->
+                {% if pkg.features %}
+                  <ul class="small text-muted mt-3 mb-0">
+                    {% for f in pkg.features %}
+                      <li>{{ f }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+
+              <!-- Pause modal -->
+              {% if pkg.can_pause and pkg.id %}
+              <div class="modal fade" id="pauseModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Pause “{{ pkg.name }}”</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body small">
+                      Pausing will stop new work and billing on this plan starting next cycle.
+                      You can resume any time.
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                      <form method="post" action="{% url 'accounts:pause_plan' pkg.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-warning">Pause plan</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <!-- Remove Button -->
+              {# Remove button (only for canceled plans) #}
+{% if pkg.can_remove and pkg.id %}
+  <form method="post"
+        action="{% url 'accounts:remove_plan' pkg.id %}"
+        class="mt-2 mb-4">  {# added mb-2 to match top spacing #}
+    {% csrf_token %}
+    <button class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Remove this canceled service from your dashboard? This cannot be undone.');">
+      Remove
+    </button>
+  </form>
+{% endif %}
+
+
+
+              <!-- Cancel modal -->
+              {% if pkg.can_cancel and pkg.id %}
+              <div class="modal fade" id="cancelModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-danger">Cancel “{{ pkg.name }}”</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body small">
+                      Are you sure you want to cancel? Your website will remain online until the current period ends.
+                      We’ll confirm the exact end date before finalizing.
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Keep plan</button>
+                      <form method="post" action="{% url 'accounts:cancel_plan' pkg.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger">Confirm cancel</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          {% else %}
+            <p class="mb-0">You don’t have any active services yet.</p>
+          {% endif %}
+
+        </div>
+      </div>
+
+      <!-- Invoices / payments -->
+      <div class="card shadow-sm mt-3">
+        <div class="card-header fw-semibold">Recent Payments</div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead class="small text-muted">
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th class="text-end">Receipt</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if invoices %}
+                  {% for inv in invoices %}
+                    <tr>
+                      <td>{{ inv.date|default:"—" }}</td>
+                      <td>{{ inv.desc|default:"—" }}</td>
+                      <td>{{ inv.amount|default:"—" }}</td>
+                      <td>
+                        {% if inv.status == "Paid" %}
+                          <span class="badge bg-success">Paid</span>
+                        {% elif inv.status == "Pending" %}
+                          <span class="badge bg-warning text-dark">Pending</span>
+                        {% else %}
+                          <span class="badge bg-secondary">{{ inv.status|default:"—" }}</span>
+                        {% endif %}
+                      </td>
+                      <td class="text-end">
+                        {% if inv.receipt_url %}
+                          <a href="{{ inv.receipt_url }}" class="btn btn-sm btn-outline-secondary">Download</a>
+                        {% else %}
+                          <span class="text-muted small">—</span>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr><td colspan="5" class="text-center text-muted small py-4">No payments yet.</td></tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ACCOUNT MANAGER -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header fw-semibold">Your Account Manager</div>
+        <div class="card-body">
+          <div class="d-flex">
+            {% if account_manager and account_manager.photo %}
+              <img src="{% static account_manager.photo %}" width="64" height="64"
+                   class="rounded-circle me-3" alt="{{ account_manager.name|default:'Account Manager' }}">
+            {% endif %}
+            <div>
+              <div class="fw-semibold">{{ account_manager.name|default:"Your Manager" }}</div>
+              <div class="small text-muted">{{ account_manager.title|default:"Account Manager" }}</div>
+              <div class="small mt-2">
+                {% if account_manager.email %}
+                  <i class="bi bi-envelope me-1"></i>
+                  <a href="mailto:{{ account_manager.email }}">{{ account_manager.email }}</a><br>
+                {% endif %}
+                {% if account_manager.phone %}
+                  <i class="bi bi-telephone me-1"></i>
+                  <a href="tel:{{ account_manager.phone }}">{{ account_manager.phone }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <p class="small text-muted mb-2">Need something changed?</p>
+          <div class="d-grid gap-2">
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'main:contact' %}?topic=change-request">
+              Request a change
+            
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="card shadow-sm mt-3">
+        <div class="card-header fw-semibold">Quick Links</div>
+        <div class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action small" href="{% url 'password_change' %}">
+            Change password
+          </a>
+          <a class="list-group-item list-group-item-action small" href="{% url 'main:contact' %}?topic=billing">
+            Billing questions
+          </a>
+          <a class="list-group-item list-group-item-action small" href="{% url 'main:contact' %}?topic=support">
+            Support
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.row -->
+
+  <!-- =========================
+       Add Service Modal (END)
+       ========================= -->
+  <div class="modal fade" id="addServiceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add a service</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs small mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="web-tab" data-bs-toggle="tab" data-bs-target="#web"
+                      type="button" role="tab" aria-controls="web" aria-selected="true">
+                Website Packages
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care"
+                      type="button" role="tab" aria-controls="care" aria-selected="false">
+                Care Plans
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <!-- WEBSITE PACKAGES -->
+            <div class="tab-pane fade show active" id="web" role="tabpanel" aria-labelledby="web-tab">
+              <div class="row g-3">
+                <!-- Launch Starter -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Launch Starter</div>
+                    <div class="text-muted small mb-2">$799 one-time</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="launch-starter">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Business Essentials -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Business Essentials</div>
+                    <div class="text-muted small mb-2">$1,499 one-time</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="business-essentials">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Growth Plus -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Growth Plus</div>
+                    <div class="text-muted small mb-2">$2,399 one-time</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="growth-plus">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARE PLANS -->
+            <div class="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab">
+              <div class="row g-3">
+                <!-- Care Basic -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Care Basic</div>
+                    <div class="text-muted small mb-2">$39 / month</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="care-basic">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Care Plus -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Care Plus</div>
+                    <div class="text-muted small mb-2">$79 / month</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="care-plus">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Care Pro -->
+                <div class="col-md-4">
+                  <div class="border rounded-3 p-3 h-100 d-flex flex-column">
+                    <div class="fw-semibold mb-1">Care Pro</div>
+                    <div class="text-muted small mb-2">$149 / month</div>
+                    <form method="post" action="{% url 'accounts:add_package' %}" class="mt-auto">
+                      {% csrf_token %}
+                      <input type="hidden" name="slug" value="care-pro">
+                      <button class="btn btn-dark btn-sm w-100">Add</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.tab-content -->
+
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Add Service Modal -->
+
+</div>
+
+<!-- Tiny JS to set progress widths from data-pct -->
+<script>
+  document.querySelectorAll('.progress-bar[data-pct]').forEach(el => {
+    const v = parseFloat(el.getAttribute('data-pct')) || 0;
+    const pct = Math.max(0, Math.min(100, v));
+    el.style.width = pct + '%';
+    el.setAttribute('aria-valuenow', pct);
+  });
+</script>
+{% endblock %}
